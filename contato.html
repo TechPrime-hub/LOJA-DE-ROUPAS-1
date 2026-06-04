@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contato — Âmbar</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Âmbar</a>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="contato.html">Contato</a>
+    <a href="carrinho.html" class="nav-cart">Carrinho (0)</a>
+  </nav>
+</header>
+
+<div class="contato-hero">
+  <span class="secao-tag">Fale Conosco</span>
+  <h1>Estamos Aqui<br><em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--terra);">para você</em></h1>
+</div>
+
+<div class="contato-container">
+
+  <div class="contato-info">
+    <h3>Atendimento Personalizado</h3>
+    <p>Nossa equipe está pronta para ajudar com dúvidas sobre tamanhos, disponibilidade, trocas e muito mais.</p>
+
+    <div class="contato-item">
+      <span>📱</span>
+      <div>
+        <strong>WhatsApp</strong>
+        <p>(64) 99999-9999</p>
+      </div>
+    </div>
+
+    <div class="contato-item">
+      <span>✉️</span>
+      <div>
+        <strong>E-mail</strong>
+        <p>contato@ambarmodas.com.br</p>
+      </div>
+    </div>
+
+    <div class="contato-item">
+      <span>📍</span>
+      <div>
+        <strong>Endereço</strong>
+        <p>Rua das Flores, 123 — Centro<br>Catalão - GO, 75700-000</p>
+      </div>
+    </div>
+
+    <div class="contato-item">
+      <span>🕐</span>
+      <div>
+        <strong>Horário de Atendimento</strong>
+        <p>Seg - Sex: 9h às 18h<br>Sábado: 9h às 13h</p>
+      </div>
+    </div>
+
+    <a href="https://wa.me/5564999999999?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20a%20Âmbar%20Modas." class="btn-whatsapp" target="_blank">
+      💬 &nbsp; Chamar no WhatsApp
+    </a>
+  </div>
+
+  <div>
+    <form class="form-contato" onsubmit="enviarFormulario(event)">
+      <div>
+        <label>Nome completo</label>
+        <input type="text" placeholder="Seu nome completo" required>
+      </div>
+      <div>
+        <label>E-mail</label>
+        <input type="email" placeholder="seu@email.com" required>
+      </div>
+      <div>
+        <label>Telefone / WhatsApp</label>
+        <input type="tel" placeholder="(00) 00000-0000">
+      </div>
+      <div>
+        <label>Assunto</label>
+        <select>
+          <option>Dúvida sobre produto</option>
+          <option>Troca ou devolução</option>
+          <option>Status do pedido</option>
+          <option>Tamanhos e medidas</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div>
+        <label>Mensagem</label>
+        <textarea placeholder="Como podemos te ajudar?" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primario" style="width:100%;text-align:center;">Enviar Mensagem</button>
+    </form>
+
+    <div id="msg-sucesso" style="display:none; background:var(--areia); border:1px solid var(--bege); padding:2rem; text-align:center; margin-top:1rem;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--marrom);">Mensagem enviada! ✨</p>
+      <p style="font-size:0.85rem;color:var(--texto-suave);">Retornaremos em até 24 horas.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">Âmbar</a>
+      <p>Moda feminina com elegância e sofisticação.</p>
+    </div>
+    <div>
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="carrinho.html">Carrinho</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Categorias</h4>
+      <ul>
+        <li><a href="catalogo.html">Vestidos</a></li>
+        <li><a href="catalogo.html">Blazers</a></li>
+        <li><a href="catalogo.html">Calças</a></li>
+        <li><a href="catalogo.html">Saias</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="https://wa.me/5564999999999">WhatsApp</a></li>
+        <li><a href="contato.html">Formulário</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Âmbar — Todos os direitos reservados</span>
+  </div>
+</footer>
+
+<script>
+function enviarFormulario(e) {
+  e.preventDefault();
+  e.target.style.display = 'none';
+  document.getElementById('msg-sucesso').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

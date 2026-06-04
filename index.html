@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Âmbar — Moda Feminina</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Âmbar</a>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="contato.html">Contato</a>
+    <a href="carrinho.html" class="nav-cart">Carrinho (0)</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-texto">
+    <span class="tag-hero">Nova Coleção 2026</span>
+    <h1>Elegância que <em>transforma</em> o seu dia a dia</h1>
+    <p>Peças exclusivas pensadas para a mulher moderna. Qualidade, sofisticação e estilo em cada detalhe.</p>
+    <div class="hero-botoes">
+      <a href="catalogo.html" class="btn btn-primario">Ver Coleção</a>
+      <a href="contato.html" class="btn btn-secundario">Falar Conosco</a>
+    </div>
+  </div>
+  <div class="hero-imagem">
+    <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=900&q=80" alt="Moda feminina elegante">
+    <div class="hero-badge">
+      <p>Frete grátis acima de</p>
+      <strong>R$ 299</strong>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIAS -->
+<section id="categorias">
+  <span class="secao-tag">Explore</span>
+  <h2 class="secao-titulo">Nossas Categorias</h2>
+  <div class="categorias-grid">
+    <a href="catalogo.html" class="categoria-card">
+      <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80" alt="Vestidos">
+      <div class="categoria-info">
+        <h3>Vestidos</h3>
+        <span>32 peças</span>
+      </div>
+    </a>
+    <a href="catalogo.html" class="categoria-card">
+      <img src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&q=80" alt="Blazers">
+      <div class="categoria-info">
+        <h3>Blazers & Casacos</h3>
+        <span>18 peças</span>
+      </div>
+    </a>
+    <a href="catalogo.html" class="categoria-card">
+      <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80" alt="Calças">
+      <div class="categoria-info">
+        <h3>Calças & Saias</h3>
+        <span>24 peças</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- NOVIDADES -->
+<section id="novidades">
+  <div class="produtos-cabecalho">
+    <div>
+      <span class="secao-tag">Acabou de chegar</span>
+      <h2 class="secao-titulo">Novidades</h2>
+    </div>
+    <a href="catalogo.html" class="btn btn-secundario">Ver tudo</a>
+  </div>
+  <div class="produtos-grid">
+
+    <div class="produto-card">
+      <div class="produto-imagem">
+        <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Vestido midi"></a>
+        <span class="produto-badge">Novo</span>
+        <div class="produto-acoes">
+          <button class="btn-acao" onclick="favoritar(this)" title="Favoritar">♡</button>
+          <button class="btn-acao" onclick="window.location='carrinho.html'" title="Adicionar ao carrinho">🛍</button>
+        </div>
+      </div>
+      <div class="produto-info">
+        <h4>Vestido Midi Terracota</h4>
+        <p class="produto-preco">R$ 289,00</p>
+      </div>
+    </div>
+
+    <div class="produto-card">
+      <div class="produto-imagem">
+        <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80" alt="Blazer"></a>
+        <div class="produto-acoes">
+          <button class="btn-acao" onclick="favoritar(this)" title="Favoritar">♡</button>
+          <button class="btn-acao" onclick="window.location='carrinho.html'" title="Adicionar ao carrinho">🛍</button>
+        </div>
+      </div>
+      <div class="produto-info">
+        <h4>Blazer Linho Bege</h4>
+        <p class="produto-preco">R$ 349,00</p>
+      </div>
+    </div>
+
+    <div class="produto-card">
+      <div class="produto-imagem">
+        <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1551163943-3f7953f43c0d?w=600&q=80" alt="Conjunto"></a>
+        <span class="produto-badge">-20%</span>
+        <div class="produto-acoes">
+          <button class="btn-acao" onclick="favoritar(this)" title="Favoritar">♡</button>
+          <button class="btn-acao" onclick="window.location='carrinho.html'" title="Adicionar ao carrinho">🛍</button>
+        </div>
+      </div>
+      <div class="produto-info">
+        <h4>Conjunto Alfaiataria</h4>
+        <span class="preco-antigo">R$ 520,00</span>
+        <span class="produto-preco">R$ 416,00</span>
+      </div>
+    </div>
+
+    <div class="produto-card">
+      <div class="produto-imagem">
+        <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80" alt="Saia"></a>
+        <span class="produto-badge">Novo</span>
+        <div class="produto-acoes">
+          <button class="btn-acao" onclick="favoritar(this)" title="Favoritar">♡</button>
+          <button class="btn-acao" onclick="window.location='carrinho.html'" title="Adicionar ao carrinho">🛍</button>
+        </div>
+      </div>
+      <div class="produto-info">
+        <h4>Saia Midi Plissada</h4>
+        <p class="produto-preco">R$ 198,00</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner-central">
+  <div class="banner-texto">
+    <span class="secao-tag">Destaque da Temporada</span>
+    <h2 class="secao-titulo">Coleção Outono<br><em>Inverno 2026</em></h2>
+    <p>Tecidos nobres, paletas terrosas e peças que atravessam as estações com elegância.</p>
+    <a href="catalogo.html" class="btn btn-primario">Explorar Coleção</a>
+  </div>
+  <div class="banner-imagem">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" alt="Coleção inverno">
+  </div>
+</div>
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais">
+  <div class="diferenciais-grid">
+    <div class="diferencial-item">
+      <span class="diferencial-icone">🚚</span>
+      <h4>Frete Grátis</h4>
+      <p>Em compras acima de R$ 299</p>
+    </div>
+    <div class="diferencial-item">
+      <span class="diferencial-icone">↩</span>
+      <h4>Troca Fácil</h4>
+      <p>Até 30 dias para trocar</p>
+    </div>
+    <div class="diferencial-item">
+      <span class="diferencial-icone">🔒</span>
+      <h4>Pagamento Seguro</h4>
+      <p>Ambiente 100% protegido</p>
+    </div>
+    <div class="diferencial-item">
+      <span class="diferencial-icone">💬</span>
+      <h4>Atendimento VIP</h4>
+      <p>Via WhatsApp em tempo real</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">Âmbar</a>
+      <p>Moda feminina com elegância e sofisticação. Cada peça pensada para valorizar você.</p>
+    </div>
+    <div>
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="carrinho.html">Carrinho</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Categorias</h4>
+      <ul>
+        <li><a href="catalogo.html">Vestidos</a></li>
+        <li><a href="catalogo.html">Blazers</a></li>
+        <li><a href="catalogo.html">Calças</a></li>
+        <li><a href="catalogo.html">Saias</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="https://wa.me/5564999999999">WhatsApp</a></li>
+        <li><a href="contato.html">Formulário</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Âmbar — Todos os direitos reservados</span>
+    <span>Feito com elegância ✨</span>
+  </div>
+</footer>
+
+<script>
+function favoritar(btn) {
+  const favoritado = btn.classList.toggle('favoritado');
+  btn.textContent = favoritado ? '♥' : '♡';
+  btn.style.color = favoritado ? '#c0392b' : '';
+}
+</script>
+</body>
+</html>

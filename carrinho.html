@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrinho & Pagamento — Âmbar</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+.etapas { display: flex; gap: 0; margin-bottom: 3rem; }
+.etapa { flex: 1; padding: 1rem; text-align: center; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-suave); border-bottom: 2px solid var(--bege); cursor: pointer; transition: all 0.3s; }
+.etapa.ativa { color: var(--terra); border-bottom-color: var(--terra); font-weight: 500; }
+.etapa.concluida { color: var(--terra-light); border-bottom-color: var(--terra-light); }
+
+.passo { display: none; }
+.passo.ativo { display: block; }
+
+.pagamento-metodos { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 1.5rem 0; }
+.metodo-card { border: 1px solid var(--bege); padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.3s; }
+.metodo-card:hover, .metodo-card.selecionado { border-color: var(--terra); background: var(--areia); }
+.metodo-card span:first-child { font-size: 1.5rem; display: block; margin-bottom: 0.5rem; }
+.metodo-card strong { font-size: 0.8rem; font-weight: 400; letter-spacing: 1px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-group label { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-suave); }
+.form-group input, .form-group select { padding: 0.9rem 1rem; border: 1px solid var(--bege); background: white; font-family: 'Jost', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.3s; }
+.form-group input:focus { border-color: var(--terra); }
+
+.pix-box { background: var(--areia); border: 1px solid var(--bege); padding: 2rem; text-align: center; margin: 1.5rem 0; }
+.pix-code { font-family: monospace; background: white; border: 1px solid var(--bege); padding: 1rem; font-size: 0.8rem; word-break: break-all; margin: 1rem 0; color: var(--texto-suave); }
+.pix-box h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--marrom); margin-bottom: 0.5rem; }
+
+.frete-box { background: var(--areia); border: 1px solid var(--bege); padding: 1.5rem; margin-top: 1.5rem; }
+.frete-box h4 { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-suave); margin-bottom: 1rem; }
+.frete-opcoes { display: flex; flex-direction: column; gap: 0.8rem; }
+.frete-opcao { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; background: white; border: 1px solid var(--bege); cursor: pointer; transition: all 0.2s; }
+.frete-opcao:hover, .frete-opcao.selecionado { border-color: var(--terra); background: var(--areia); }
+.frete-opcao input[type=radio] { accent-color: var(--terra); margin-right: 0.8rem; }
+.frete-opcao-info { display: flex; align-items: center; gap: 0.8rem; flex: 1; }
+.frete-opcao-nome { font-size: 0.85rem; font-weight: 400; }
+.frete-opcao-prazo { font-size: 0.75rem; color: var(--texto-suave); margin-left: 0.5rem; }
+.frete-opcao-preco { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--terra); }
+.frete-loading { text-align: center; padding: 1rem; font-size: 0.85rem; color: var(--texto-suave); }
+.frete-erro { color: #c0392b; font-size: 0.82rem; padding: 0.5rem 0; }
+.cep-row { display: flex; gap: 0.8rem; align-items: flex-end; }
+.cep-row input { flex: 1; }
+.btn-calcular { padding: 0.9rem 1.4rem; background: var(--terra); color: white; border: none; font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background 0.3s; }
+.btn-calcular:hover { background: var(--terra-dark); }
+.sucesso { display: none; text-align: center; padding: 4rem 2rem; }
+.sucesso.visivel { display: block; }
+.sucesso-icone { font-size: 4rem; margin-bottom: 1rem; }
+.sucesso h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--marrom); margin-bottom: 1rem; }
+.sucesso p { color: var(--texto-suave); margin-bottom: 2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Âmbar</a>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="contato.html">Contato</a>
+    <a href="carrinho.html" class="nav-cart">Carrinho (2)</a>
+  </nav>
+</header>
+
+<div class="carrinho-hero">
+  <span class="secao-tag">Sua Sacola</span>
+  <h1>Carrinho & Pagamento</h1>
+</div>
+
+<div class="carrinho-container" id="conteudo-carrinho">
+
+  <!-- ITENS + ETAPAS -->
+  <div>
+    <div class="etapas">
+      <div class="etapa ativa" id="etapa-1">1. Carrinho</div>
+      <div class="etapa" id="etapa-2">2. Entrega</div>
+      <div class="etapa" id="etapa-3">3. Pagamento</div>
+    </div>
+
+    <!-- PASSO 1: CARRINHO -->
+    <div class="passo ativo" id="passo-1">
+      <div class="carrinho-itens">
+
+        <div class="item-carrinho">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&q=80" alt="Vestido">
+          <div class="item-info">
+            <h4>Vestido Midi Terracota</h4>
+            <p>Tamanho: M &nbsp;|&nbsp; Cor: Terracota</p>
+            <div class="item-quantidade">
+              <button class="qty-btn" onclick="mudarQtd(this,-1)">−</button>
+              <span class="qtd">1</span>
+              <button class="qty-btn" onclick="mudarQtd(this,1)">+</button>
+            </div>
+            <button class="btn-remover" onclick="removerItem(this)">Remover</button>
+          </div>
+          <div class="item-preco" data-preco="289">R$ 289,00</div>
+        </div>
+
+        <div class="item-carrinho">
+          <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=300&q=80" alt="Blazer">
+          <div class="item-info">
+            <h4>Blazer Linho Bege</h4>
+            <p>Tamanho: P &nbsp;|&nbsp; Cor: Bege</p>
+            <div class="item-quantidade">
+              <button class="qty-btn" onclick="mudarQtd(this,-1)">−</button>
+              <span class="qtd">1</span>
+              <button class="qty-btn" onclick="mudarQtd(this,1)">+</button>
+            </div>
+            <button class="btn-remover" onclick="removerItem(this)">Remover</button>
+          </div>
+          <div class="item-preco" data-preco="349">R$ 349,00</div>
+        </div>
+
+      </div>
+      <div style="margin-top:2rem; display:flex; justify-content:flex-end;">
+        <button class="btn btn-primario" onclick="irPara(2)">Continuar para Entrega →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 2: ENTREGA -->
+    <div class="passo" id="passo-2">
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+        <div class="form-row">
+          <div class="form-group"><label>Nome completo</label><input type="text" id="nome-entrega" placeholder="Seu nome"></div>
+          <div class="form-group"><label>CPF</label><input type="text" placeholder="000.000.000-00"></div>
+        </div>
+
+        <div class="form-group">
+          <label>CEP de entrega</label>
+          <div class="cep-row">
+            <input type="text" id="cep-destino" placeholder="00000-000" maxlength="9" oninput="mascaraCep(this)">
+            <button class="btn-calcular" onclick="calcularFrete()">Calcular Frete</button>
+          </div>
+          <span id="frete-erro" class="frete-erro"></span>
+        </div>
+
+        <div id="frete-box" class="frete-box" style="display:none;">
+          <h4>Opções de Entrega</h4>
+          <div id="frete-opcoes" class="frete-opcoes"></div>
+        </div>
+
+        <div class="form-row" id="campos-endereco" style="display:none;">
+          <div class="form-group"><label>Endereço</label><input type="text" id="endereco" placeholder="Rua, número"></div>
+          <div class="form-group"><label>Complemento</label><input type="text" placeholder="Apto, bloco..."></div>
+        </div>
+        <div class="form-row" id="campos-cidade" style="display:none;">
+          <div class="form-group"><label>Cidade</label><input type="text" id="cidade" placeholder="Sua cidade"></div>
+          <div class="form-group"><label>Estado</label><input type="text" id="estado" placeholder="UF"></div>
+        </div>
+
+      </div>
+      <div style="margin-top:2rem; display:flex; justify-content:space-between;">
+        <button class="btn btn-secundario" onclick="irPara(1)">← Voltar</button>
+        <button class="btn btn-primario" id="btn-ir-pagamento" style="display:none;" onclick="irPara(3)">Ir para Pagamento →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 3: PAGAMENTO -->
+    <div class="passo" id="passo-3">
+      <p style="font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--texto-suave);margin-bottom:0.5rem;">Escolha a forma de pagamento</p>
+      <div class="pagamento-metodos">
+        <div class="metodo-card selecionado" onclick="selecionarMetodo(this,'cartao')">
+          <span>💳</span><strong>Cartão de Crédito</strong>
+        </div>
+        <div class="metodo-card" onclick="selecionarMetodo(this,'pix')">
+          <span>📱</span><strong>Pix</strong>
+        </div>
+        <div class="metodo-card" onclick="selecionarMetodo(this,'boleto')">
+          <span>📄</span><strong>Boleto</strong>
+        </div>
+      </div>
+
+      <div id="form-cartao">
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="form-group"><label>Número do Cartão</label><input type="text" placeholder="0000 0000 0000 0000"></div>
+          <div class="form-group"><label>Nome no Cartão</label><input type="text" placeholder="Como está no cartão"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Validade</label><input type="text" placeholder="MM/AA"></div>
+            <div class="form-group"><label>CVV</label><input type="text" placeholder="000"></div>
+          </div>
+          <div class="form-group"><label>Parcelas</label>
+            <select>
+              <option>1x de R$ 638,00 (sem juros)</option>
+              <option>2x de R$ 319,00 (sem juros)</option>
+              <option>3x de R$ 212,67 (sem juros)</option>
+              <option>6x de R$ 113,17 (sem juros)</option>
+              <option>10x de R$ 67,90 (sem juros)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div id="form-pix" style="display:none;">
+        <div class="pix-box">
+          <h4>Pague via Pix</h4>
+          <p style="font-size:0.85rem;color:var(--texto-suave);">Use o código abaixo ou escaneie o QR Code</p>
+          <div class="pix-code">00020126580014br.gov.bcb.pix0136ambar-loja@pix.com.br5204000053039865802BR5913Ambar Modas6008Catalao62090505ambar6304ABCD</div>
+          <button class="btn btn-secundario" onclick="navigator.clipboard.writeText('ambar-loja@pix.com.br')">Copiar chave Pix</button>
+        </div>
+      </div>
+
+      <div id="form-boleto" style="display:none;">
+        <div class="pix-box">
+          <h4>Pagamento por Boleto</h4>
+          <p style="font-size:0.85rem;color:var(--texto-suave);margin-bottom:1rem;">Vencimento em 3 dias úteis. O pedido será confirmado após compensação.</p>
+          <button class="btn btn-primario">Gerar Boleto</button>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem; display:flex; justify-content:space-between;">
+        <button class="btn btn-secundario" onclick="irPara(2)">← Voltar</button>
+        <button class="btn btn-primario" onclick="finalizarPedido()">Finalizar Pedido ✓</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RESUMO -->
+  <div class="resumo-pedido">
+    <h3>Resumo do Pedido</h3>
+    <div class="resumo-linha"><span>Vestido Midi Terracota</span><span>R$ 289,00</span></div>
+    <div class="resumo-linha"><span>Blazer Linho Bege</span><span>R$ 349,00</span></div>
+    <div class="resumo-linha"><span>Subtotal</span><span>R$ 638,00</span></div>
+    <div class="resumo-linha"><span>Frete</span><span style="color:#2e7d32;">Grátis</span></div>
+    <div class="resumo-total"><span>Total</span><span>R$ 638,00</span></div>
+
+    <div class="cupom-input">
+      <input type="text" placeholder="Cupom de desconto">
+      <button>Aplicar</button>
+    </div>
+
+    <div style="font-size:0.75rem;color:var(--texto-suave);text-align:center;margin-top:1rem;">
+      🔒 Compra 100% segura &nbsp;|&nbsp; SSL Certificado
+    </div>
+  </div>
+
+</div>
+
+<!-- SUCESSO -->
+<div class="sucesso" id="sucesso">
+  <div class="sucesso-icone">🎉</div>
+  <h2>Pedido Confirmado!</h2>
+  <p>Obrigada pela sua compra. Você receberá um e-mail de confirmação em breve.<br>Seu pedido será enviado em até 3 dias úteis.</p>
+  <a href="index.html" class="btn btn-primario">Continuar Comprando</a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">Âmbar</a>
+      <p>Moda feminina com elegância e sofisticação.</p>
+    </div>
+    <div>
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </div>
+    <div><h4>Segurança</h4><ul><li><a href="#">Política de Privacidade</a></li><li><a href="#">Trocas e Devoluções</a></li></ul></div>
+    <div><h4>Contato</h4><ul><li><a href="https://wa.me/5564999999999">WhatsApp</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Âmbar</span></div>
+</footer>
+
+<script>
+const CEP_ORIGEM = '75700000';
+
+function mascaraCep(input) {
+  let v = input.value.replace(/\D/g,'');
+  if(v.length > 5) v = v.slice(0,5) + '-' + v.slice(5,8);
+  input.value = v;
+}
+
+async function calcularFrete() {
+  const cepRaw = document.getElementById('cep-destino').value.replace(/\D/g,'');
+  const erroEl = document.getElementById('frete-erro');
+  const freteBox = document.getElementById('frete-box');
+  const opcoesEl = document.getElementById('frete-opcoes');
+
+  erroEl.textContent = '';
+  freteBox.style.display = 'none';
+  document.getElementById('btn-ir-pagamento').style.display = 'none';
+
+  if(cepRaw.length !== 8) { erroEl.textContent = 'Digite um CEP válido com 8 dígitos.'; return; }
+
+  opcoesEl.innerHTML = '<div class="frete-loading">🔍 Calculando opções de frete...</div>';
+  freteBox.style.display = 'block';
+
+  try {
+    const resp = await fetch('https://viacep.com.br/ws/' + cepRaw + '/json/');
+    const end = await resp.json();
+    if(end.erro) { erroEl.textContent = 'CEP não encontrado.'; freteBox.style.display='none'; return; }
+
+    document.getElementById('campos-endereco').style.display = 'grid';
+    document.getElementById('campos-cidade').style.display = 'grid';
+    document.getElementById('endereco').value = end.logradouro || '';
+    document.getElementById('cidade').value = end.localidade || '';
+    document.getElementById('estado').value = end.uf || '';
+
+    const opcoes = simularFrete(end.uf);
+    renderizarOpcoes(opcoes, opcoesEl);
+    document.getElementById('btn-ir-pagamento').style.display = 'inline-block';
+  } catch(e) {
+    erroEl.textContent = 'Erro ao consultar CEP. Verifique sua conexão.';
+    freteBox.style.display = 'none';
+  }
+}
+
+// Simulação de frete por região
+// Em produção: POST https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate
+// Body: { from:{postal_code:"75700000"}, to:{postal_code:cep}, package:{weight:0.5,width:20,height:5,length:30}, options:{insurance_value:638} }
+// Header: Authorization: Bearer {SEU_TOKEN}
+function simularFrete(uf) {
+  const local = uf === 'GO';
+  const proximo = ['MG','SP','MS','MT','TO','BA','DF'].includes(uf);
+  const subtotal = 638;
+
+  const opcoes = [
+    { nome: subtotal >= 299 ? 'PAC — Frete Grátis' : 'PAC', icone: '📦',
+      prazo: local ? '3 dias úteis' : proximo ? '6 dias úteis' : '10 dias úteis',
+      preco: subtotal >= 299 ? 0 : local ? 12.80 : proximo ? 19.40 : 27.60 },
+    { nome: 'SEDEX', icone: '⚡',
+      prazo: local ? '1 dia útil' : proximo ? '2 dias úteis' : '4 dias úteis',
+      preco: local ? 18.50 : proximo ? 28.90 : 42.30 },
+    { nome: 'Jadlog .com', icone: '🚚',
+      prazo: local ? '2 dias úteis' : proximo ? '3 dias úteis' : '6 dias úteis',
+      preco: local ? 14.90 : proximo ? 22.50 : 33.10 }
+  ];
+  return opcoes;
+}
+
+function renderizarOpcoes(opcoes, container) {
+  container.innerHTML = '';
+  opcoes.forEach((op, i) => {
+    const div = document.createElement('div');
+    div.className = 'frete-opcao' + (i===0?' selecionado':'');
+    div.onclick = function(){ document.querySelectorAll('.frete-opcao').forEach(o=>o.classList.remove('selecionado')); this.classList.add('selecionado'); atualizarResumoFrete(op); };
+    div.innerHTML = '<div class="frete-opcao-info"><input type="radio" name="frete" '+(i===0?'checked':'')+'>'+
+      '<span style="font-size:1.2rem">'+op.icone+'</span>'+
+      '<span class="frete-opcao-nome">'+op.nome+'</span>'+
+      '<span class="frete-opcao-prazo">— '+op.prazo+'</span></div>'+
+      '<span class="frete-opcao-preco">'+(op.preco===0?'Grátis':'R$ '+op.preco.toFixed(2).replace('.',','))+'</span>';
+    container.appendChild(div);
+    if(i===0) atualizarResumoFrete(op);
+  });
+}
+
+function atualizarResumoFrete(op) {
+  const linhas = document.querySelectorAll('.resumo-linha');
+  linhas.forEach(l => {
+    if(l.querySelector('span:first-child').textContent === 'Frete') {
+      const v = l.querySelector('span:last-child');
+      v.textContent = op.preco===0 ? 'Grátis' : 'R$ '+op.preco.toFixed(2).replace('.',',');
+      v.style.color = op.preco===0 ? '#2e7d32' : 'var(--texto)';
+    }
+  });
+  const total = document.querySelector('.resumo-total span:last-child');
+  if(total) total.textContent = 'R$ '+(638+op.preco).toFixed(2).replace('.',',');
+}
+
+function irPara(n) {
+  for(let i=1;i<=3;i++){
+    document.getElementById('passo-'+i).classList.remove('ativo');
+    const et = document.getElementById('etapa-'+i);
+    et.classList.remove('ativa','concluida');
+    if(i < n) et.classList.add('concluida');
+  }
+  document.getElementById('passo-'+n).classList.add('ativo');
+  document.getElementById('etapa-'+n).classList.add('ativa');
+  window.scrollTo({top:300,behavior:'smooth'});
+}
+
+function mudarQtd(btn, delta) {
+  const span = btn.parentElement.querySelector('.qtd');
+  const card = btn.closest('.item-carrinho');
+  const precoEl = card.querySelector('.item-preco');
+  const precoBase = parseFloat(precoEl.dataset.preco);
+  let qtd = parseInt(span.textContent) + delta;
+  if(qtd < 1) qtd = 1;
+  span.textContent = qtd;
+  precoEl.textContent = 'R$ '+(precoBase*qtd).toFixed(2).replace('.',',');
+}
+
+function removerItem(btn) { btn.closest('.item-carrinho').remove(); }
+
+function selecionarMetodo(card, metodo) {
+  document.querySelectorAll('.metodo-card').forEach(c => c.classList.remove('selecionado'));
+  card.classList.add('selecionado');
+  document.getElementById('form-cartao').style.display = metodo==='cartao' ? 'block' : 'none';
+  document.getElementById('form-pix').style.display = metodo==='pix' ? 'block' : 'none';
+  document.getElementById('form-boleto').style.display = metodo==='boleto' ? 'block' : 'none';
+}
+
+function finalizarPedido() {
+  document.getElementById('conteudo-carrinho').style.display = 'none';
+  document.getElementById('sucesso').classList.add('visivel');
+  window.scrollTo({top:300,behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo — Âmbar</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Âmbar</a>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="contato.html">Contato</a>
+    <a href="carrinho.html" class="nav-cart">Carrinho (0)</a>
+  </nav>
+</header>
+
+<div class="catalogo-hero">
+  <div>
+    <span class="secao-tag">Explore tudo</span>
+    <h1>Catálogo Completo</h1>
+  </div>
+  <p style="color: var(--texto-suave); max-width: 300px; text-align: right;">74 peças disponíveis na coleção atual</p>
+</div>
+
+<div class="filtros">
+  <button class="filtro-btn ativo" onclick="filtrar(this, 'todos')">Todos</button>
+  <button class="filtro-btn" onclick="filtrar(this, 'vestidos')">Vestidos</button>
+  <button class="filtro-btn" onclick="filtrar(this, 'blazers')">Blazers</button>
+  <button class="filtro-btn" onclick="filtrar(this, 'calcas')">Calças</button>
+  <button class="filtro-btn" onclick="filtrar(this, 'saias')">Saias</button>
+  <button class="filtro-btn" onclick="filtrar(this, 'promocao')">Promoção</button>
+</div>
+
+<div class="catalogo-grid" id="grid">
+
+  <div class="produto-card" data-cat="vestidos">
+    <div class="produto-imagem">
+      <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Vestido"></a>
+      <span class="produto-badge">Novo</span>
+      <div class="produto-acoes"><button class="btn-acao" onclick="favoritar(this)">♡</button><button class="btn-acao" onclick="window.location='carrinho.html'">🛍</button></div>
+    </div>
+    <div class="produto-info"><h4>Vestido Midi Terracota</h4><p class="produto-preco">R$ 289,00</p></div>
+  </div>
+
+  <div class="produto-card" data-cat="blazers">
+    <div class="produto-imagem">
+      <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80" alt="Blazer"></a>
+      <div class="produto-acoes"><button class="btn-acao" onclick="favoritar(this)">♡</button><button class="btn-acao" onclick="window.location='carrinho.html'">🛍</button></div>
+    </div>
+    <div class="produto-info"><h4>Blazer Linho Bege</h4><p class="produto-preco">R$ 349,00</p></div>
+  </div>
+
+  <div class="produto-card" data-cat="calcas promocao">
+    <div class="produto-imagem">
+      <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1551163943-3f7953f43c0d?w=600&q=80" alt="Conjunto"></a>
+      <span class="produto-badge">-20%</span>
+      <div class="produto-acoes"><button class="btn-acao" onclick="favoritar(this)">♡</button><button class="btn-acao" onclick="window.location='carrinho.html'">🛍</button></div>
+    </div>
+    <div class="produto-info"><h4>Conjunto Alfaiataria</h4><span class="preco-antigo">R$ 520,00</span> <span class="produto-preco">R$ 416,00</span></div>
+  </div>
+
+  <div class="produto-card" data-cat="saias">
+    <div class="produto-imagem">
+      <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80" alt="Saia"></a>
+      <span class="produto-badge">Novo</span>
+      <div class="produto-acoes"><button class="btn-acao" onclick="favoritar(this)">♡</button><button class="btn-acao" onclick="window.location='carrinho.html'">🛍</button></div>
+    </div>
+    <div class="produto-info"><h4>Saia Midi Plissada</h4><p class="produto-preco">R$ 198,00</p></div>
+  </div>
+
+  <div class="produto-card" data-cat="vestidos promocao">
+    <div class="produto-imagem">
+      <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80" alt="Vestido"></a>
+      <span class="produto-badge">-15%</span>
+      <div class="produto-acoes"><button class="btn-acao" onclick="favoritar(this)">♡</button><button class="btn-acao" onclick="window.location='carrinho.html'">🛍</button></div>
+    </div>
+    <div class="produto-info"><h4>Vestido Floral Nude</h4><span class="preco-antigo">R$ 320,00</span> <span class="produto-preco">R$ 272,00</span></div>
+  </div>
+
+  <div class="produto-card" data-cat="blazers">
+    <div class="produto-imagem">
+      <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&q=80" alt="Casaco"></a>
+      <div class="produto-acoes"><button class="btn-acao" onclick="favoritar(this)">♡</button><button class="btn-acao" onclick="window.location='carrinho.html'">🛍</button></div>
+    </div>
+    <div class="produto-info"><h4>Trench Coat Caramelo</h4><p class="produto-preco">R$ 489,00</p></div>
+  </div>
+
+  <div class="produto-card" data-cat="calcas">
+    <div class="produto-imagem">
+      <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80" alt="Calça"></a>
+      <span class="produto-badge">Novo</span>
+      <div class="produto-acoes"><button class="btn-acao" onclick="favoritar(this)">♡</button><button class="btn-acao" onclick="window.location='carrinho.html'">🛍</button></div>
+    </div>
+    <div class="produto-info"><h4>Calça Pantalona Off-White</h4><p class="produto-preco">R$ 259,00</p></div>
+  </div>
+
+  <div class="produto-card" data-cat="vestidos">
+    <div class="produto-imagem">
+      <a href="carrinho.html"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Vestido"></a>
+      <div class="produto-acoes"><button class="btn-acao" onclick="favoritar(this)">♡</button><button class="btn-acao" onclick="window.location='carrinho.html'">🛍</button></div>
+    </div>
+    <div class="produto-info"><h4>Vestido Longo Marrom</h4><p class="produto-preco">R$ 379,00</p></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">Âmbar</a>
+      <p>Moda feminina com elegância e sofisticação.</p>
+    </div>
+    <div>
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="carrinho.html">Carrinho</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Categorias</h4>
+      <ul>
+        <li><a href="#">Vestidos</a></li>
+        <li><a href="#">Blazers</a></li>
+        <li><a href="#">Calças</a></li>
+        <li><a href="#">Saias</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="https://wa.me/5564999999999">WhatsApp</a></li>
+        <li><a href="contato.html">Formulário</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Âmbar — Todos os direitos reservados</span>
+  </div>
+</footer>
+
+<script>
+function favoritar(btn) {
+  const favoritado = btn.classList.toggle('favoritado');
+  btn.textContent = favoritado ? '♥' : '♡';
+  btn.style.color = favoritado ? '#c0392b' : '';
+}
+
+function filtrar(btn, cat) {
+  document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  document.querySelectorAll('.produto-card').forEach(card => {
+    if (cat === 'todos' || card.dataset.cat.includes(cat)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
