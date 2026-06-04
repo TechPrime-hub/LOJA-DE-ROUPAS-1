@@ -737,3 +737,102 @@ footer {
   .catalogo-grid { grid-template-columns: 1fr 1fr; padding: 3rem 2rem; }
   .catalogo-hero, .carrinho-hero, .contato-hero, .filtros { padding-left: 2rem; padding-right: 2rem; }
 }
+/* ===== RESET RESPONSIVO ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== IMAGENS RESPONSIVAS ===== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== HEADER MOBILE ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px;
+}
+
+nav {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* ===== HERO RESPONSIVO ===== */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hero-texto,
+.hero-imagem {
+  flex: 1;
+}
+
+/* ===== GRID RESPONSIVO ===== */
+.categorias-grid,
+.produtos-grid,
+.diferenciais-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* ===== BOTÕES RESPONSIVOS ===== */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+}
+
+/* ===== RESPONSIVO CELULAR ===== */
+@media (max-width: 768px) {
+
+  /* empilha tudo */
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  nav {
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* grids viram coluna */
+  .categorias-grid,
+  .produtos-grid,
+  .diferenciais-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* textos menores */
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  /* botões ocupam largura total no celular */
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* cards mais ajustados */
+  .produto-card,
+  .categoria-card {
+    width: 100%;
+  }
+}
